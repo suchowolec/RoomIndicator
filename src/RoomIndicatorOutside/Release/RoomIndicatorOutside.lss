@@ -1,0 +1,617 @@
+
+RoomIndicatorOutside.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         0000000a  00800100  000004c0  00000554  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000004c0  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000005  0080010a  0080010a  0000055e  2**0
+                  ALLOC
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 ef 01 	jmp	0x3de	; 0x3de <__vector_1>
+   8:	0c 94 ce 00 	jmp	0x19c	; 0x19c <__vector_2>
+   c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  10:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  14:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  18:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  1c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  2c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  38:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  48:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  50:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  64:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_copy_data>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	e0 ec       	ldi	r30, 0xC0	; 192
+  7c:	f4 e0       	ldi	r31, 0x04	; 4
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <.do_copy_data_start>
+
+00000080 <.do_copy_data_loop>:
+  80:	05 90       	lpm	r0, Z+
+  82:	0d 92       	st	X+, r0
+
+00000084 <.do_copy_data_start>:
+  84:	aa 30       	cpi	r26, 0x0A	; 10
+  86:	b1 07       	cpc	r27, r17
+  88:	d9 f7       	brne	.-10     	; 0x80 <.do_copy_data_loop>
+
+0000008a <__do_clear_bss>:
+  8a:	11 e0       	ldi	r17, 0x01	; 1
+  8c:	aa e0       	ldi	r26, 0x0A	; 10
+  8e:	b1 e0       	ldi	r27, 0x01	; 1
+  90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
+
+00000092 <.do_clear_bss_loop>:
+  92:	1d 92       	st	X+, r1
+
+00000094 <.do_clear_bss_start>:
+  94:	af 30       	cpi	r26, 0x0F	; 15
+  96:	b1 07       	cpc	r27, r17
+  98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
+  9a:	0e 94 24 01 	call	0x248	; 0x248 <main>
+  9e:	0c 94 5e 02 	jmp	0x4bc	; 0x4bc <_exit>
+
+000000a2 <__bad_interrupt>:
+  a2:	0c 94 dd 00 	jmp	0x1ba	; 0x1ba <__vector_default>
+
+000000a6 <blink_red_led>:
+  a6:	cf 93       	push	r28
+  a8:	df 93       	push	r29
+  aa:	90 e0       	ldi	r25, 0x00	; 0
+  ac:	41 e0       	ldi	r20, 0x01	; 1
+  ae:	50 e0       	ldi	r21, 0x00	; 0
+  b0:	c0 e1       	ldi	r28, 0x10	; 16
+  b2:	d7 e2       	ldi	r29, 0x27	; 39
+  b4:	68 2f       	mov	r22, r24
+  b6:	70 e0       	ldi	r23, 0x00	; 0
+  b8:	a8 ec       	ldi	r26, 0xC8	; 200
+  ba:	b0 e0       	ldi	r27, 0x00	; 0
+  bc:	13 c0       	rjmp	.+38     	; 0xe4 <blink_red_led+0x3e>
+  be:	58 9a       	sbi	0x0b, 0	; 11
+  c0:	fe 01       	movw	r30, r28
+  c2:	31 97       	sbiw	r30, 0x01	; 1
+  c4:	f1 f7       	brne	.-4      	; 0xc2 <blink_red_led+0x1c>
+  c6:	58 98       	cbi	0x0b, 0	; 11
+  c8:	46 17       	cp	r20, r22
+  ca:	57 07       	cpc	r21, r23
+  cc:	44 f4       	brge	.+16     	; 0xde <blink_red_led+0x38>
+  ce:	28 ee       	ldi	r18, 0xE8	; 232
+  d0:	33 e0       	ldi	r19, 0x03	; 3
+  d2:	fd 01       	movw	r30, r26
+  d4:	31 97       	sbiw	r30, 0x01	; 1
+  d6:	f1 f7       	brne	.-4      	; 0xd4 <blink_red_led+0x2e>
+  d8:	21 50       	subi	r18, 0x01	; 1
+  da:	30 40       	sbci	r19, 0x00	; 0
+  dc:	d1 f7       	brne	.-12     	; 0xd2 <blink_red_led+0x2c>
+  de:	9f 5f       	subi	r25, 0xFF	; 255
+  e0:	4f 5f       	subi	r20, 0xFF	; 255
+  e2:	5f 4f       	sbci	r21, 0xFF	; 255
+  e4:	98 17       	cp	r25, r24
+  e6:	58 f3       	brcs	.-42     	; 0xbe <blink_red_led+0x18>
+  e8:	df 91       	pop	r29
+  ea:	cf 91       	pop	r28
+  ec:	08 95       	ret
+
+000000ee <blink_green_led>:
+  ee:	cf 93       	push	r28
+  f0:	df 93       	push	r29
+  f2:	90 e0       	ldi	r25, 0x00	; 0
+  f4:	41 e0       	ldi	r20, 0x01	; 1
+  f6:	50 e0       	ldi	r21, 0x00	; 0
+  f8:	c0 e1       	ldi	r28, 0x10	; 16
+  fa:	d7 e2       	ldi	r29, 0x27	; 39
+  fc:	68 2f       	mov	r22, r24
+  fe:	70 e0       	ldi	r23, 0x00	; 0
+ 100:	a8 ec       	ldi	r26, 0xC8	; 200
+ 102:	b0 e0       	ldi	r27, 0x00	; 0
+ 104:	13 c0       	rjmp	.+38     	; 0x12c <blink_green_led+0x3e>
+ 106:	59 9a       	sbi	0x0b, 1	; 11
+ 108:	fe 01       	movw	r30, r28
+ 10a:	31 97       	sbiw	r30, 0x01	; 1
+ 10c:	f1 f7       	brne	.-4      	; 0x10a <blink_green_led+0x1c>
+ 10e:	59 98       	cbi	0x0b, 1	; 11
+ 110:	46 17       	cp	r20, r22
+ 112:	57 07       	cpc	r21, r23
+ 114:	44 f4       	brge	.+16     	; 0x126 <blink_green_led+0x38>
+ 116:	28 ee       	ldi	r18, 0xE8	; 232
+ 118:	33 e0       	ldi	r19, 0x03	; 3
+ 11a:	fd 01       	movw	r30, r26
+ 11c:	31 97       	sbiw	r30, 0x01	; 1
+ 11e:	f1 f7       	brne	.-4      	; 0x11c <blink_green_led+0x2e>
+ 120:	21 50       	subi	r18, 0x01	; 1
+ 122:	30 40       	sbci	r19, 0x00	; 0
+ 124:	d1 f7       	brne	.-12     	; 0x11a <blink_green_led+0x2c>
+ 126:	9f 5f       	subi	r25, 0xFF	; 255
+ 128:	4f 5f       	subi	r20, 0xFF	; 255
+ 12a:	5f 4f       	sbci	r21, 0xFF	; 255
+ 12c:	98 17       	cp	r25, r24
+ 12e:	58 f3       	brcs	.-42     	; 0x106 <blink_green_led+0x18>
+ 130:	df 91       	pop	r29
+ 132:	cf 91       	pop	r28
+ 134:	08 95       	ret
+
+00000136 <beep>:
+ 136:	cf 93       	push	r28
+ 138:	df 93       	push	r29
+ 13a:	90 e0       	ldi	r25, 0x00	; 0
+ 13c:	41 e0       	ldi	r20, 0x01	; 1
+ 13e:	50 e0       	ldi	r21, 0x00	; 0
+ 140:	c0 e4       	ldi	r28, 0x40	; 64
+ 142:	dc e9       	ldi	r29, 0x9C	; 156
+ 144:	68 2f       	mov	r22, r24
+ 146:	70 e0       	ldi	r23, 0x00	; 0
+ 148:	a8 ec       	ldi	r26, 0xC8	; 200
+ 14a:	b0 e0       	ldi	r27, 0x00	; 0
+ 14c:	13 c0       	rjmp	.+38     	; 0x174 <beep+0x3e>
+ 14e:	5c 9a       	sbi	0x0b, 4	; 11
+ 150:	fe 01       	movw	r30, r28
+ 152:	31 97       	sbiw	r30, 0x01	; 1
+ 154:	f1 f7       	brne	.-4      	; 0x152 <beep+0x1c>
+ 156:	5c 98       	cbi	0x0b, 4	; 11
+ 158:	46 17       	cp	r20, r22
+ 15a:	57 07       	cpc	r21, r23
+ 15c:	44 f4       	brge	.+16     	; 0x16e <beep+0x38>
+ 15e:	28 ee       	ldi	r18, 0xE8	; 232
+ 160:	33 e0       	ldi	r19, 0x03	; 3
+ 162:	fd 01       	movw	r30, r26
+ 164:	31 97       	sbiw	r30, 0x01	; 1
+ 166:	f1 f7       	brne	.-4      	; 0x164 <beep+0x2e>
+ 168:	21 50       	subi	r18, 0x01	; 1
+ 16a:	30 40       	sbci	r19, 0x00	; 0
+ 16c:	d1 f7       	brne	.-12     	; 0x162 <beep+0x2c>
+ 16e:	9f 5f       	subi	r25, 0xFF	; 255
+ 170:	4f 5f       	subi	r20, 0xFF	; 255
+ 172:	5f 4f       	sbci	r21, 0xFF	; 255
+ 174:	98 17       	cp	r25, r24
+ 176:	58 f3       	brcs	.-42     	; 0x14e <beep+0x18>
+ 178:	df 91       	pop	r29
+ 17a:	cf 91       	pop	r28
+ 17c:	08 95       	ret
+
+0000017e <system_sleep>:
+ 17e:	83 b7       	in	r24, 0x33	; 51
+ 180:	81 7f       	andi	r24, 0xF1	; 241
+ 182:	84 60       	ori	r24, 0x04	; 4
+ 184:	83 bf       	out	0x33, r24	; 51
+ 186:	83 b7       	in	r24, 0x33	; 51
+ 188:	81 60       	ori	r24, 0x01	; 1
+ 18a:	83 bf       	out	0x33, r24	; 51
+ 18c:	83 b7       	in	r24, 0x33	; 51
+ 18e:	81 60       	ori	r24, 0x01	; 1
+ 190:	83 bf       	out	0x33, r24	; 51
+ 192:	88 95       	sleep
+ 194:	83 b7       	in	r24, 0x33	; 51
+ 196:	8e 7f       	andi	r24, 0xFE	; 254
+ 198:	83 bf       	out	0x33, r24	; 51
+ 19a:	08 95       	ret
+
+0000019c <__vector_2>:
+ 19c:	1f 92       	push	r1
+ 19e:	0f 92       	push	r0
+ 1a0:	0f b6       	in	r0, 0x3f	; 63
+ 1a2:	0f 92       	push	r0
+ 1a4:	11 24       	eor	r1, r1
+ 1a6:	8f 93       	push	r24
+ 1a8:	81 e0       	ldi	r24, 0x01	; 1
+ 1aa:	80 93 0a 01 	sts	0x010A, r24
+ 1ae:	8f 91       	pop	r24
+ 1b0:	0f 90       	pop	r0
+ 1b2:	0f be       	out	0x3f, r0	; 63
+ 1b4:	0f 90       	pop	r0
+ 1b6:	1f 90       	pop	r1
+ 1b8:	18 95       	reti
+
+000001ba <__vector_default>:
+ 1ba:	1f 92       	push	r1
+ 1bc:	0f 92       	push	r0
+ 1be:	0f b6       	in	r0, 0x3f	; 63
+ 1c0:	0f 92       	push	r0
+ 1c2:	11 24       	eor	r1, r1
+ 1c4:	0f 90       	pop	r0
+ 1c6:	0f be       	out	0x3f, r0	; 63
+ 1c8:	0f 90       	pop	r0
+ 1ca:	1f 90       	pop	r1
+ 1cc:	18 95       	reti
+
+000001ce <setup>:
+ 1ce:	8f ee       	ldi	r24, 0xEF	; 239
+ 1d0:	84 b9       	out	0x04, r24	; 4
+ 1d2:	84 e0       	ldi	r24, 0x04	; 4
+ 1d4:	85 b9       	out	0x05, r24	; 5
+ 1d6:	8f ef       	ldi	r24, 0xFF	; 255
+ 1d8:	87 b9       	out	0x07, r24	; 7
+ 1da:	18 b8       	out	0x08, r1	; 8
+ 1dc:	8a b1       	in	r24, 0x0a	; 10
+ 1de:	83 6f       	ori	r24, 0xF3	; 243
+ 1e0:	8a b9       	out	0x0a, r24	; 10
+ 1e2:	8a b1       	in	r24, 0x0a	; 10
+ 1e4:	83 7f       	andi	r24, 0xF3	; 243
+ 1e6:	8a b9       	out	0x0a, r24	; 10
+ 1e8:	8b b1       	in	r24, 0x0b	; 11
+ 1ea:	8c 70       	andi	r24, 0x0C	; 12
+ 1ec:	8b b9       	out	0x0b, r24	; 11
+ 1ee:	8b b1       	in	r24, 0x0b	; 11
+ 1f0:	8c 60       	ori	r24, 0x0C	; 12
+ 1f2:	8b b9       	out	0x0b, r24	; 11
+ 1f4:	80 91 69 00 	lds	r24, 0x0069
+ 1f8:	88 60       	ori	r24, 0x08	; 8
+ 1fa:	80 93 69 00 	sts	0x0069, r24
+ 1fe:	e9 9a       	sbi	0x1d, 1	; 29
+ 200:	0e 94 14 02 	call	0x428	; 0x428 <mirf_init>
+ 204:	84 ef       	ldi	r24, 0xF4	; 244
+ 206:	91 e0       	ldi	r25, 0x01	; 1
+ 208:	28 ec       	ldi	r18, 0xC8	; 200
+ 20a:	30 e0       	ldi	r19, 0x00	; 0
+ 20c:	f9 01       	movw	r30, r18
+ 20e:	31 97       	sbiw	r30, 0x01	; 1
+ 210:	f1 f7       	brne	.-4      	; 0x20e <setup+0x40>
+ 212:	01 97       	sbiw	r24, 0x01	; 1
+ 214:	d9 f7       	brne	.-10     	; 0x20c <setup+0x3e>
+ 216:	78 94       	sei
+ 218:	85 e0       	ldi	r24, 0x05	; 5
+ 21a:	91 e0       	ldi	r25, 0x01	; 1
+ 21c:	0e 94 c0 01 	call	0x380	; 0x380 <mirf_set_RADDR>
+ 220:	80 e0       	ldi	r24, 0x00	; 0
+ 222:	91 e0       	ldi	r25, 0x01	; 1
+ 224:	0e 94 ba 01 	call	0x374	; 0x374 <mirf_set_TADDR>
+ 228:	0e 94 5f 01 	call	0x2be	; 0x2be <mirf_config>
+ 22c:	08 95       	ret
+
+0000022e <sendMessage>:
+ 22e:	1f 93       	push	r17
+ 230:	18 2f       	mov	r17, r24
+ 232:	0e 94 5f 01 	call	0x2be	; 0x2be <mirf_config>
+ 236:	10 93 0d 01 	sts	0x010D, r17
+ 23a:	8d e0       	ldi	r24, 0x0D	; 13
+ 23c:	91 e0       	ldi	r25, 0x01	; 1
+ 23e:	61 e0       	ldi	r22, 0x01	; 1
+ 240:	0e 94 74 01 	call	0x2e8	; 0x2e8 <mirf_send>
+ 244:	1f 91       	pop	r17
+ 246:	08 95       	ret
+
+00000248 <main>:
+ 248:	0e 94 e7 00 	call	0x1ce	; 0x1ce <setup>
+ 24c:	80 91 0a 01 	lds	r24, 0x010A
+ 250:	81 30       	cpi	r24, 0x01	; 1
+ 252:	41 f4       	brne	.+16     	; 0x264 <main+0x1c>
+ 254:	8f ef       	ldi	r24, 0xFF	; 255
+ 256:	0e 94 17 01 	call	0x22e	; 0x22e <sendMessage>
+ 25a:	81 e0       	ldi	r24, 0x01	; 1
+ 25c:	0e 94 9b 00 	call	0x136	; 0x136 <beep>
+ 260:	10 92 0a 01 	sts	0x010A, r1
+ 264:	0e 94 67 01 	call	0x2ce	; 0x2ce <mirf_data_ready>
+ 268:	88 23       	and	r24, r24
+ 26a:	81 f3       	breq	.-32     	; 0x24c <main+0x4>
+ 26c:	8d e0       	ldi	r24, 0x0D	; 13
+ 26e:	91 e0       	ldi	r25, 0x01	; 1
+ 270:	0e 94 db 01 	call	0x3b6	; 0x3b6 <mirf_get_data>
+ 274:	80 91 0d 01 	lds	r24, 0x010D
+ 278:	8f 3f       	cpi	r24, 0xFF	; 255
+ 27a:	19 f4       	brne	.+6      	; 0x282 <main+0x3a>
+ 27c:	59 98       	cbi	0x0b, 1	; 11
+ 27e:	58 9a       	sbi	0x0b, 0	; 11
+ 280:	e5 cf       	rjmp	.-54     	; 0x24c <main+0x4>
+ 282:	59 9a       	sbi	0x0b, 1	; 11
+ 284:	58 98       	cbi	0x0b, 0	; 11
+ 286:	e2 cf       	rjmp	.-60     	; 0x24c <main+0x4>
+
+00000288 <mirf_get_status>:
+ 288:	2a 98       	cbi	0x05, 2	; 5
+ 28a:	8f e3       	ldi	r24, 0x3F	; 63
+ 28c:	0e 94 58 02 	call	0x4b0	; 0x4b0 <spi_fast_shift>
+ 290:	2a 9a       	sbi	0x05, 2	; 5
+ 292:	08 95       	ret
+
+00000294 <mirf_is_sending>:
+ 294:	0e 94 44 01 	call	0x288	; 0x288 <mirf_get_status>
+ 298:	90 e0       	ldi	r25, 0x00	; 0
+ 29a:	80 73       	andi	r24, 0x30	; 48
+ 29c:	09 f4       	brne	.+2      	; 0x2a0 <mirf_is_sending+0xc>
+ 29e:	91 e0       	ldi	r25, 0x01	; 1
+ 2a0:	89 2f       	mov	r24, r25
+ 2a2:	08 95       	ret
+
+000002a4 <mirf_config_register>:
+ 2a4:	1f 93       	push	r17
+ 2a6:	16 2f       	mov	r17, r22
+ 2a8:	2a 98       	cbi	0x05, 2	; 5
+ 2aa:	8f 71       	andi	r24, 0x1F	; 31
+ 2ac:	80 62       	ori	r24, 0x20	; 32
+ 2ae:	0e 94 58 02 	call	0x4b0	; 0x4b0 <spi_fast_shift>
+ 2b2:	81 2f       	mov	r24, r17
+ 2b4:	0e 94 58 02 	call	0x4b0	; 0x4b0 <spi_fast_shift>
+ 2b8:	2a 9a       	sbi	0x05, 2	; 5
+ 2ba:	1f 91       	pop	r17
+ 2bc:	08 95       	ret
+
+000002be <mirf_config>:
+ 2be:	10 92 0e 01 	sts	0x010E, r1
+ 2c2:	80 e0       	ldi	r24, 0x00	; 0
+ 2c4:	6b e3       	ldi	r22, 0x3B	; 59
+ 2c6:	0e 94 52 01 	call	0x2a4	; 0x2a4 <mirf_config_register>
+ 2ca:	42 9a       	sbi	0x08, 2	; 8
+ 2cc:	08 95       	ret
+
+000002ce <mirf_data_ready>:
+ 2ce:	80 91 0e 01 	lds	r24, 0x010E
+ 2d2:	88 23       	and	r24, r24
+ 2d4:	11 f0       	breq	.+4      	; 0x2da <mirf_data_ready+0xc>
+ 2d6:	80 e0       	ldi	r24, 0x00	; 0
+ 2d8:	08 95       	ret
+ 2da:	2a 98       	cbi	0x05, 2	; 5
+ 2dc:	8f ef       	ldi	r24, 0xFF	; 255
+ 2de:	0e 94 58 02 	call	0x4b0	; 0x4b0 <spi_fast_shift>
+ 2e2:	2a 9a       	sbi	0x05, 2	; 5
+ 2e4:	80 74       	andi	r24, 0x40	; 64
+ 2e6:	08 95       	ret
+
+000002e8 <mirf_send>:
+ 2e8:	1f 93       	push	r17
+ 2ea:	cf 93       	push	r28
+ 2ec:	df 93       	push	r29
+ 2ee:	ec 01       	movw	r28, r24
+ 2f0:	16 2f       	mov	r17, r22
+ 2f2:	80 91 0e 01 	lds	r24, 0x010E
+ 2f6:	88 23       	and	r24, r24
+ 2f8:	e1 f7       	brne	.-8      	; 0x2f2 <mirf_send+0xa>
+ 2fa:	42 98       	cbi	0x08, 2	; 8
+ 2fc:	81 e0       	ldi	r24, 0x01	; 1
+ 2fe:	80 93 0e 01 	sts	0x010E, r24
+ 302:	80 e0       	ldi	r24, 0x00	; 0
+ 304:	6a e3       	ldi	r22, 0x3A	; 58
+ 306:	0e 94 52 01 	call	0x2a4	; 0x2a4 <mirf_config_register>
+ 30a:	2a 98       	cbi	0x05, 2	; 5
+ 30c:	81 ee       	ldi	r24, 0xE1	; 225
+ 30e:	0e 94 58 02 	call	0x4b0	; 0x4b0 <spi_fast_shift>
+ 312:	2a 9a       	sbi	0x05, 2	; 5
+ 314:	2a 98       	cbi	0x05, 2	; 5
+ 316:	80 ea       	ldi	r24, 0xA0	; 160
+ 318:	0e 94 58 02 	call	0x4b0	; 0x4b0 <spi_fast_shift>
+ 31c:	ce 01       	movw	r24, r28
+ 31e:	61 2f       	mov	r22, r17
+ 320:	0e 94 4b 02 	call	0x496	; 0x496 <spi_transmit_sync>
+ 324:	2a 9a       	sbi	0x05, 2	; 5
+ 326:	42 9a       	sbi	0x08, 2	; 8
+ 328:	0e 94 4a 01 	call	0x294	; 0x294 <mirf_is_sending>
+ 32c:	88 23       	and	r24, r24
+ 32e:	e1 f7       	brne	.-8      	; 0x328 <mirf_send+0x40>
+ 330:	42 98       	cbi	0x08, 2	; 8
+ 332:	6b e3       	ldi	r22, 0x3B	; 59
+ 334:	0e 94 52 01 	call	0x2a4	; 0x2a4 <mirf_config_register>
+ 338:	42 9a       	sbi	0x08, 2	; 8
+ 33a:	10 92 0e 01 	sts	0x010E, r1
+ 33e:	87 e0       	ldi	r24, 0x07	; 7
+ 340:	60 e3       	ldi	r22, 0x30	; 48
+ 342:	0e 94 52 01 	call	0x2a4	; 0x2a4 <mirf_config_register>
+ 346:	df 91       	pop	r29
+ 348:	cf 91       	pop	r28
+ 34a:	1f 91       	pop	r17
+ 34c:	08 95       	ret
+
+0000034e <mirf_write_register>:
+ 34e:	ff 92       	push	r15
+ 350:	0f 93       	push	r16
+ 352:	1f 93       	push	r17
+ 354:	8b 01       	movw	r16, r22
+ 356:	f4 2e       	mov	r15, r20
+ 358:	2a 98       	cbi	0x05, 2	; 5
+ 35a:	8f 71       	andi	r24, 0x1F	; 31
+ 35c:	80 62       	ori	r24, 0x20	; 32
+ 35e:	0e 94 58 02 	call	0x4b0	; 0x4b0 <spi_fast_shift>
+ 362:	c8 01       	movw	r24, r16
+ 364:	6f 2d       	mov	r22, r15
+ 366:	0e 94 4b 02 	call	0x496	; 0x496 <spi_transmit_sync>
+ 36a:	2a 9a       	sbi	0x05, 2	; 5
+ 36c:	1f 91       	pop	r17
+ 36e:	0f 91       	pop	r16
+ 370:	ff 90       	pop	r15
+ 372:	08 95       	ret
+
+00000374 <mirf_set_TADDR>:
+ 374:	bc 01       	movw	r22, r24
+ 376:	80 e1       	ldi	r24, 0x10	; 16
+ 378:	45 e0       	ldi	r20, 0x05	; 5
+ 37a:	0e 94 a7 01 	call	0x34e	; 0x34e <mirf_write_register>
+ 37e:	08 95       	ret
+
+00000380 <mirf_set_RADDR>:
+ 380:	bc 01       	movw	r22, r24
+ 382:	42 98       	cbi	0x08, 2	; 8
+ 384:	8a e0       	ldi	r24, 0x0A	; 10
+ 386:	45 e0       	ldi	r20, 0x05	; 5
+ 388:	0e 94 a7 01 	call	0x34e	; 0x34e <mirf_write_register>
+ 38c:	42 9a       	sbi	0x08, 2	; 8
+ 38e:	08 95       	ret
+
+00000390 <mirf_read_register>:
+ 390:	ff 92       	push	r15
+ 392:	0f 93       	push	r16
+ 394:	1f 93       	push	r17
+ 396:	8b 01       	movw	r16, r22
+ 398:	f4 2e       	mov	r15, r20
+ 39a:	2a 98       	cbi	0x05, 2	; 5
+ 39c:	8f 71       	andi	r24, 0x1F	; 31
+ 39e:	0e 94 58 02 	call	0x4b0	; 0x4b0 <spi_fast_shift>
+ 3a2:	c8 01       	movw	r24, r16
+ 3a4:	b8 01       	movw	r22, r16
+ 3a6:	4f 2d       	mov	r20, r15
+ 3a8:	0e 94 33 02 	call	0x466	; 0x466 <spi_transfer_sync>
+ 3ac:	2a 9a       	sbi	0x05, 2	; 5
+ 3ae:	1f 91       	pop	r17
+ 3b0:	0f 91       	pop	r16
+ 3b2:	ff 90       	pop	r15
+ 3b4:	08 95       	ret
+
+000003b6 <mirf_get_data>:
+ 3b6:	0f 93       	push	r16
+ 3b8:	1f 93       	push	r17
+ 3ba:	8c 01       	movw	r16, r24
+ 3bc:	2a 98       	cbi	0x05, 2	; 5
+ 3be:	81 e6       	ldi	r24, 0x61	; 97
+ 3c0:	0e 94 58 02 	call	0x4b0	; 0x4b0 <spi_fast_shift>
+ 3c4:	c8 01       	movw	r24, r16
+ 3c6:	b8 01       	movw	r22, r16
+ 3c8:	41 e0       	ldi	r20, 0x01	; 1
+ 3ca:	0e 94 33 02 	call	0x466	; 0x466 <spi_transfer_sync>
+ 3ce:	2a 9a       	sbi	0x05, 2	; 5
+ 3d0:	87 e0       	ldi	r24, 0x07	; 7
+ 3d2:	60 e4       	ldi	r22, 0x40	; 64
+ 3d4:	0e 94 52 01 	call	0x2a4	; 0x2a4 <mirf_config_register>
+ 3d8:	1f 91       	pop	r17
+ 3da:	0f 91       	pop	r16
+ 3dc:	08 95       	ret
+
+000003de <__vector_1>:
+ 3de:	1f 92       	push	r1
+ 3e0:	0f 92       	push	r0
+ 3e2:	0f b6       	in	r0, 0x3f	; 63
+ 3e4:	0f 92       	push	r0
+ 3e6:	11 24       	eor	r1, r1
+ 3e8:	2f 93       	push	r18
+ 3ea:	3f 93       	push	r19
+ 3ec:	4f 93       	push	r20
+ 3ee:	5f 93       	push	r21
+ 3f0:	6f 93       	push	r22
+ 3f2:	7f 93       	push	r23
+ 3f4:	8f 93       	push	r24
+ 3f6:	9f 93       	push	r25
+ 3f8:	af 93       	push	r26
+ 3fa:	bf 93       	push	r27
+ 3fc:	ef 93       	push	r30
+ 3fe:	ff 93       	push	r31
+ 400:	81 e0       	ldi	r24, 0x01	; 1
+ 402:	0e 94 9b 00 	call	0x136	; 0x136 <beep>
+ 406:	ff 91       	pop	r31
+ 408:	ef 91       	pop	r30
+ 40a:	bf 91       	pop	r27
+ 40c:	af 91       	pop	r26
+ 40e:	9f 91       	pop	r25
+ 410:	8f 91       	pop	r24
+ 412:	7f 91       	pop	r23
+ 414:	6f 91       	pop	r22
+ 416:	5f 91       	pop	r21
+ 418:	4f 91       	pop	r20
+ 41a:	3f 91       	pop	r19
+ 41c:	2f 91       	pop	r18
+ 41e:	0f 90       	pop	r0
+ 420:	0f be       	out	0x3f, r0	; 63
+ 422:	0f 90       	pop	r0
+ 424:	1f 90       	pop	r1
+ 426:	18 95       	reti
+
+00000428 <mirf_init>:
+ 428:	22 9a       	sbi	0x04, 2	; 4
+ 42a:	42 98       	cbi	0x08, 2	; 8
+ 42c:	2a 9a       	sbi	0x05, 2	; 5
+ 42e:	e9 e6       	ldi	r30, 0x69	; 105
+ 430:	f0 e0       	ldi	r31, 0x00	; 0
+ 432:	80 81       	ld	r24, Z
+ 434:	82 60       	ori	r24, 0x02	; 2
+ 436:	80 83       	st	Z, r24
+ 438:	e8 9a       	sbi	0x1d, 0	; 29
+ 43a:	0e 94 28 02 	call	0x450	; 0x450 <spi_init>
+ 43e:	85 e0       	ldi	r24, 0x05	; 5
+ 440:	62 e0       	ldi	r22, 0x02	; 2
+ 442:	0e 94 52 01 	call	0x2a4	; 0x2a4 <mirf_config_register>
+ 446:	81 e1       	ldi	r24, 0x11	; 17
+ 448:	61 e0       	ldi	r22, 0x01	; 1
+ 44a:	0e 94 52 01 	call	0x2a4	; 0x2a4 <mirf_config_register>
+ 44e:	08 95       	ret
+
+00000450 <spi_init>:
+ 450:	84 b1       	in	r24, 0x04	; 4
+ 452:	83 7c       	andi	r24, 0xC3	; 195
+ 454:	84 b9       	out	0x04, r24	; 4
+ 456:	84 b1       	in	r24, 0x04	; 4
+ 458:	8c 62       	ori	r24, 0x2C	; 44
+ 45a:	84 b9       	out	0x04, r24	; 4
+ 45c:	80 e5       	ldi	r24, 0x50	; 80
+ 45e:	8c bd       	out	0x2c, r24	; 44
+ 460:	81 e0       	ldi	r24, 0x01	; 1
+ 462:	8d bd       	out	0x2d, r24	; 45
+ 464:	08 95       	ret
+
+00000466 <spi_transfer_sync>:
+ 466:	cf 93       	push	r28
+ 468:	df 93       	push	r29
+ 46a:	ec 01       	movw	r28, r24
+ 46c:	db 01       	movw	r26, r22
+ 46e:	20 e0       	ldi	r18, 0x00	; 0
+ 470:	30 e0       	ldi	r19, 0x00	; 0
+ 472:	0c c0       	rjmp	.+24     	; 0x48c <spi_transfer_sync+0x26>
+ 474:	fe 01       	movw	r30, r28
+ 476:	e2 0f       	add	r30, r18
+ 478:	f3 1f       	adc	r31, r19
+ 47a:	80 81       	ld	r24, Z
+ 47c:	8e bd       	out	0x2e, r24	; 46
+ 47e:	0d b4       	in	r0, 0x2d	; 45
+ 480:	07 fe       	sbrs	r0, 7
+ 482:	fd cf       	rjmp	.-6      	; 0x47e <spi_transfer_sync+0x18>
+ 484:	8e b5       	in	r24, 0x2e	; 46
+ 486:	8d 93       	st	X+, r24
+ 488:	2f 5f       	subi	r18, 0xFF	; 255
+ 48a:	3f 4f       	sbci	r19, 0xFF	; 255
+ 48c:	24 17       	cp	r18, r20
+ 48e:	90 f3       	brcs	.-28     	; 0x474 <spi_transfer_sync+0xe>
+ 490:	df 91       	pop	r29
+ 492:	cf 91       	pop	r28
+ 494:	08 95       	ret
+
+00000496 <spi_transmit_sync>:
+ 496:	fc 01       	movw	r30, r24
+ 498:	90 e0       	ldi	r25, 0x00	; 0
+ 49a:	07 c0       	rjmp	.+14     	; 0x4aa <spi_transmit_sync+0x14>
+ 49c:	80 81       	ld	r24, Z
+ 49e:	8e bd       	out	0x2e, r24	; 46
+ 4a0:	0d b4       	in	r0, 0x2d	; 45
+ 4a2:	07 fe       	sbrs	r0, 7
+ 4a4:	fd cf       	rjmp	.-6      	; 0x4a0 <spi_transmit_sync+0xa>
+ 4a6:	9f 5f       	subi	r25, 0xFF	; 255
+ 4a8:	31 96       	adiw	r30, 0x01	; 1
+ 4aa:	96 17       	cp	r25, r22
+ 4ac:	b8 f3       	brcs	.-18     	; 0x49c <spi_transmit_sync+0x6>
+ 4ae:	08 95       	ret
+
+000004b0 <spi_fast_shift>:
+ 4b0:	8e bd       	out	0x2e, r24	; 46
+ 4b2:	0d b4       	in	r0, 0x2d	; 45
+ 4b4:	07 fe       	sbrs	r0, 7
+ 4b6:	fd cf       	rjmp	.-6      	; 0x4b2 <spi_fast_shift+0x2>
+ 4b8:	8e b5       	in	r24, 0x2e	; 46
+ 4ba:	08 95       	ret
+
+000004bc <_exit>:
+ 4bc:	f8 94       	cli
+
+000004be <__stop_program>:
+ 4be:	ff cf       	rjmp	.-2      	; 0x4be <__stop_program>
